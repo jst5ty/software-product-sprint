@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds a random fact about myself or random quote from one of my favorite shows.
  */
 function addRandomGreeting() {
   const greetings =
