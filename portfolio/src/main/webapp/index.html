@@ -6,13 +6,93 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
+
+  <style>
+    img {
+    width: 100%;
+    }
+    body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    }
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    }
+
+    li {
+    float: left;
+    }
+
+    li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+
+    li a:hover {
+    background-color: #111;
+    }
+  </style>
+
   <body>
+
+    <ul>
+        <li><a href="https://www.linkedin.com/in/juan-tapia-claros-246115148" target="_blank">LinkedIn</a></li>
+        <li><a href="https://github.com/jst5ty" target="_blank">GitHub</a></li>
+        <li><a href="" target="_blank">Gallery</a></li>
+    </ul>
+
+
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
+      <h1>Juan Tapia's Portfolio</h1>
+      <img src="/images/giraffe.jpg"  height="300">
+      <h2>About Me</h2>
+      <hr>
+      <p>I am a rising senior at the University of Virginia majoring in Computer Science. I am proficient with the following programming languages: Python, Java, C, and C++. I have previously worked with kite.com as a remote python code curator where I authored and reviewed programming articles. In my free time I enjoy playing video games, drawing, playing soccer, reading comic books, and watching my favorite TV shows. </p>
+      <hr>
+      <h2>Projects</h2>
+      <p>Contributed to the development of <a href="https://skillzshare.herokuapp.com/" target="_blank">SkillzShare</a>, a social networking website for college students. I designed and implemented the user interface using HTML, CSS, and JavaScript. In developing the website I used Python with the Django framework, Travis CI build environment, GitHub source control, and cloud hosting with Heroku. The design requirements for the website were outlined using UML diagrams and was used to manage the integration of new features.</p>
+      
+      <hr>
+      <h2>Gallery</h2>
+      <p>Some images of my favorite places, pets, and other things.</p>
+      <div class="row">
+        <div class="column">
+            <img src="/images/dragon_bridge.jpg" alt="" style="width:100%">
+        </div>
+        <div class="column">
+            <img src="/images/new_york.jpg" alt="" style="width:100%">
+        </div>
+        <div class="column">
+            <img src="/images/robin_rocko_mecha.jpg" alt="" style="width:100%">
+        </div>
+        <div class="column">
+            <img src="/images/tucan.jpg" alt="" style="width:100%">
+        </div>
+        <div class="column">
+            <img src="/images/beach.jpg" alt="" style="width:100%">
+        </div>
+        <div class="column">
+            <img src="/images/robin_rocko_mecha_1.jpg" alt="" style="width:100%">
+        </div>
+        <div class="column">
+            <img src="/images/casa_rosada.jpg" alt="" style="width:100%">
+        </div>
+      </div>
+      
+      <hr>
+      <h2>Other</h2>     
+      <p>Click here to show a random quote from my favorite TV show, or a random fact about myself:</p>
       <button onclick="addRandomGreeting()">Hello</button>
       <div id="greeting-container"></div>
+      <hr>
+
     </div>
   </body>
 </html>
