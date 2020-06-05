@@ -13,11 +13,14 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds a random fact about myself or random quote from one of my favorite shows.
  */
 function addRandomGreeting() {
   const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+      ['Fun Fact: My all-time favorite TV show is Dragon Ball Z.', 
+      'Fun Fact: I enjoy reading manga, which are japanese styled comic books, like My Hero Acedamia, Death Note, Bakuman, Jujutsu Kaisen, Demon Slayer:Kimetsu no Yaiba, Bleach, etc.',
+       '“You’re absolutely right. I can’t do anything alone. Everyone has their flaws and imperfections, but that’s what drives us to work together… To make up for those flaws. Together, we make the perfect main character.” – Gintoki Sakata',
+        'Fun Fact: I walked next to a lion.'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
