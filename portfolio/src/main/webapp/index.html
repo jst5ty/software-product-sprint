@@ -38,6 +38,29 @@
     li a:hover {
     background-color: #111;
     }
+
+    .footer {
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    padding: 14px 16px;
+    color: white;
+    text-align: center;
+    }
+
+    .button {
+    background-color: #333;
+    border: none;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    padding: 10px 24px;
+    }
   </style>
 
   <body>
@@ -45,7 +68,6 @@
     <ul>
         <li><a href="https://www.linkedin.com/in/juan-tapia-claros-246115148" target="_blank">LinkedIn</a></li>
         <li><a href="https://github.com/jst5ty" target="_blank">GitHub</a></li>
-        <li><a href="" target="_blank">Gallery</a></li>
     </ul>
 
 
@@ -89,10 +111,14 @@
       <hr>
       <h2>Other</h2>     
       <p>Click here to show a random quote from my favorite TV show, or a random fact about myself:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+      <button class="button" onclick="addRandomFact()">Hello</button>
+      <div id="fact-container" style="background-color:black;color:white;padding:20px;border-radius: 4px;"></div>
       <hr>
-
     </div>
+
+    <div class="footer">
+    <p> </p>
+    </div>
+
   </body>
 </html>
