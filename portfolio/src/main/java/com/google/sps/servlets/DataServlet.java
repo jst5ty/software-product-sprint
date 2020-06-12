@@ -19,6 +19,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -26,7 +29,26 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("Hello Juan Tapia!");
+
+    ArrayList<String> arrayList = new ArrayList<>();
+    arrayList.add("Dog");
+    arrayList.add("Cat");
+    arrayList.add("Bird");
+    // Convert the server stats to JSON
+    String json = convertToJsonUsingGson(arrayList);
+
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+    /**
+   * Converts a ArrayList instance into a JSON string using the Gson library. Note: We first added
+   * the Gson library dependency to pom.xml.
+   */
+  private String convertToJsonUsingGson(ArrayList<String> arr) {
+    Gson gson = new Gson();
+    String json = gson.toJson(arr);
+    return json;
   }
 }

@@ -15,7 +15,7 @@
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     }
-    ul {
+    .header {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -23,11 +23,11 @@
     background-color: #333;
     }
 
-    li {
+    .header-item {
     float: left;
     }
 
-    li a {
+    .header-item a {
     display: block;
     color: white;
     text-align: center;
@@ -35,7 +35,7 @@
     text-decoration: none;
     }
 
-    li a:hover {
+    .header-item a:hover {
     background-color: #111;
     }
 
@@ -65,9 +65,9 @@
 
   <body>
 
-    <ul>
-        <li><a href="https://www.linkedin.com/in/juan-tapia-claros-246115148" target="_blank">LinkedIn</a></li>
-        <li><a href="https://github.com/jst5ty" target="_blank">GitHub</a></li>
+    <ul class="header">
+        <li class="header-item"><a href="https://www.linkedin.com/in/juan-tapia-claros-246115148" target="_blank">LinkedIn</a></li>
+        <li class="header-item"><a href="https://github.com/jst5ty" target="_blank">GitHub</a></li>
     </ul>
 
 
@@ -112,10 +112,12 @@
       <h2>Other</h2>     
       <p>Click here to show a random quote from my favorite TV show, or a random fact about myself:</p>
       <button class="button" onclick="addRandomFact()">Hello</button>
-      <button class="button" onclick="getRandomContentUsingArrowFunctions()">Other</button>
+      <button class="button" onclick="getRandomContentUsingArrowFunctions()">View Comments</button>
       <div id="fact-container" style="background-color:black;color:white;padding:20px;border-radius: 4px;"></div>
       <hr>
-      <div id="mycontent-container" style="background-color:black;color:white;padding:20px;border-radius: 4px;"></div>
+      <div style="background-color:black;color:white;padding:20px;border-radius: 4px;">
+          <ul id="mycontent-container" ></ul>
+      </div>
       <hr>
     </div>
 
