@@ -37,10 +37,21 @@ function addRandomFact() {
  * combines all of the code into a single Promise chain.
  */
 function getRandomContentUsingArrowFunctions() {
-  fetch('/data').then(response => response.text()).then((mycontent) => {
-    document.getElementById('mycontent-container').innerText = mycontent;
+  fetch('/data').then(response => response.json()).then((mycontent) => {
+    const listElement = document.getElementById('mycontent-container');
+    listElement.innerHTML = '';
+    listElement.appendChild(createListElement('1: ' + mycontent[0]));
+    listElement.appendChild(createListElement('2: ' + mycontent[1]));
+    listElement.appendChild(createListElement('3: ' + mycontent[2]));
+
+
   });
 }
 
-
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
 
