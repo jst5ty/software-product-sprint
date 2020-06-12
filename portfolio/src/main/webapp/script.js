@@ -40,10 +40,10 @@ function getRandomContentUsingArrowFunctions() {
   fetch('/data').then(response => response.json()).then((mycontent) => {
     const listElement = document.getElementById('mycontent-container');
     listElement.innerHTML = '';
-    listElement.appendChild(createListElement('1: ' + mycontent[0]));
-    listElement.appendChild(createListElement('2: ' + mycontent[1]));
-    listElement.appendChild(createListElement('3: ' + mycontent[2]));
-
+    //listElement.appendChild(createListElement('1: ' + mycontent[0]));
+    for (var i = 0; i < mycontent.length; i++) {
+        listElement.appendChild(createListElement('' + mycontent[i]));
+    }
 
   });
 }
