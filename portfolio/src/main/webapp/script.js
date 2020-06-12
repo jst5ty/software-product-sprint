@@ -29,3 +29,18 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+
+/**
+ * Instead of organizing to show each individual step into different functions, 
+ * ES6 has a feature called arrow functions to shorten the code. This function
+ * combines all of the code into a single Promise chain.
+ */
+function getRandomContentUsingArrowFunctions() {
+  fetch('/data').then(response => response.text()).then((mycontent) => {
+    document.getElementById('mycontent-container').innerText = mycontent;
+  });
+}
+
+
+
