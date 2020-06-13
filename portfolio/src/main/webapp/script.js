@@ -41,7 +41,7 @@ function getCommentContentUsingArrowFunctions() {
     const listElement = document.getElementById('mycontent-container');
     listElement.innerHTML = '';
     for (var i = 0; i < mycontent.length; i++) {
-        listElement.appendChild(createListElement('"' + mycontent[i] + '"'));
+        listElement.appendChild(createListElement('' + mycontent[i]));
     }
 
   });

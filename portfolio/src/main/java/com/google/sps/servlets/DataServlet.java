@@ -45,10 +45,11 @@ public class DataServlet extends HttpServlet {
     ArrayList<String> tasks = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
+      String name = (String) entity.getProperty("name");
       String comment = (String) entity.getProperty("comment");
       long timestamp = (long) entity.getProperty("timestamp");
-
-      tasks.add(comment);
+      
+      tasks.add('"' + comment + '"' + " - " + name);
     }
 
     Gson gson = new Gson();
@@ -64,10 +65,12 @@ public class DataServlet extends HttpServlet {
   */
     @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String name = request.getParameter("name");
     String value = request.getParameter("comment");
     long timestamp = System.currentTimeMillis();
 
     Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("name", name);
     taskEntity.setProperty("comment", value);
     taskEntity.setProperty("timestamp", timestamp);
 
