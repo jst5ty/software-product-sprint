@@ -24,52 +24,66 @@ import com.google.gson.Gson;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  
-  private ArrayList<String> arrayList = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
 
-    //ArrayList<String> arrayList = new ArrayList<>();
-    //arrayList.add("Dog");
-    //arrayList.add("Cat");
-    //arrayList.add("Bird");
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-    // Convert the server stats to JSON
-    String json = convertToJsonUsingGson(arrayList);
+    ArrayList<String> tasks = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String name = (String) entity.getProperty("name");
+      String comment = (String) entity.getProperty("comment");
+      long timestamp = (long) entity.getProperty("timestamp");
+      
+      tasks.add('"' + comment + '"' + " - " + name);
+    }
+
+    Gson gson = new Gson();
 
     // Send the JSON as the response
     response.setContentType("application/json;");
-    response.getWriter().println(json);
+    response.getWriter().println(gson.toJson(tasks));
+
   }
   /**
   * When the user clicks the Submit button, the form sends a POST request to the URL specified in the form's action attribute. 
-  * The server looks for a servlet that maps to that URL, and then runs its doPost() function.
+  * The server looks for a servlet that maps to that URL, and then runs its doPost() function. Data send via POST is stored in DataService.
   */
     @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String name = request.getParameter("name");
     String value = request.getParameter("comment");
-    arrayList.add(value);
+    long timestamp = System.currentTimeMillis();
 
     Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("name", name);
     taskEntity.setProperty("comment", value);
+    taskEntity.setProperty("timestamp", timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(taskEntity);
 
-    // Redirect back to the HTML page.
+    // Redirect client back to the HTML page (i.e. Home page)
     response.sendRedirect("/index.html");
   }
 
 
     /**
-   * Converts a ArrayList instance into a JSON string using the Gson library. Note: We first added
+   * Converts an ArrayList instance into a JSON string using the Gson library. Note: We first added
    * the Gson library dependency to pom.xml.
    */
   private String convertToJsonUsingGson(ArrayList<String> arr) {

@@ -36,11 +36,10 @@ function addRandomFact() {
  * ES6 has a feature called arrow functions to shorten the code. This function
  * combines all of the code into a single Promise chain.
  */
-function getRandomContentUsingArrowFunctions() {
+function getCommentContentUsingArrowFunctions() {
   fetch('/data').then(response => response.json()).then((mycontent) => {
     const listElement = document.getElementById('mycontent-container');
     listElement.innerHTML = '';
-    //listElement.appendChild(createListElement('1: ' + mycontent[0]));
     for (var i = 0; i < mycontent.length; i++) {
         listElement.appendChild(createListElement('' + mycontent[i]));
     }
