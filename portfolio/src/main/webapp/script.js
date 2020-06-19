@@ -63,24 +63,25 @@ function displayLoginContent() {
 
     const item_element = document.getElementById('login-header');
     const a = document.createElement('a');
-    var link = document.createTextNode(""); 
 
-    if (info[0] === "true") { // User is logged in
+    if (info["status"] === "true") { // User is logged in
         comment_body.style.display = "block"; //display
         login_button.style.display = "none";  //Hide
 
-        var link = document.createTextNode("LogOut");
+        // Display Logout header tab
+        var link = document.createTextNode("Logout");
         a.appendChild(link);
-        a.href = info[1];
+        a.href = info["url"];
         item_element.appendChild(a);
     } else {
         comment_body.style.display = "none";
         login_button.style.display = "block";
         login_button.onclick = function() {window.location=info[1]};
 
-        var link = document.createTextNode("LogIn");
+        // Display Login header tab
+        var link = document.createTextNode("Login");
         a.appendChild(link);
-        a.href = info[1];
+        a.href = info["url"];
         item_element.appendChild(a);
   }
 

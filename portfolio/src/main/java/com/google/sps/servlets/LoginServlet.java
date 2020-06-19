@@ -28,8 +28,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -41,20 +40,20 @@ public class LoginServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     UserService userService = UserServiceFactory.getUserService();
-    ArrayList<String> info = new ArrayList<>();
+    HashMap<String, String> info = new HashMap<String, String>();
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = "/";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
-      info.add("true");
-      info.add(logoutUrl);
-      info.add(userEmail);
+      info.put("status", "true");
+      info.put("url", logoutUrl);
+      info.put("email", userEmail);
     } else {
       String urlToRedirectToAfterUserLogsIn = "/";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-      info.add("false");
-      info.add(loginUrl);
-      info.add("NONE");
+      info.put("status", "false");
+      info.put("url", loginUrl);
+      info.put("email", "NONE");
     }
     
     Gson gson = new Gson();
