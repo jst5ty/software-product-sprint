@@ -40,19 +40,20 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query("CommentSubmission").addSort("timestamp", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     ArrayList<String> tasks = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
+      // long id = entity.getKey().getId();
       String name = (String) entity.getProperty("name");
       String comment = (String) entity.getProperty("comment");
       long timestamp = (long) entity.getProperty("timestamp");
+      String userEmail = (String) entity.getProperty("email");
       
-      tasks.add('"' + comment + '"' + " - " + name);
+      tasks.add('"' + comment + '"' + " - " + userEmail);
     }
 
     Gson gson = new Gson();
@@ -65,6 +66,7 @@ public class DataServlet extends HttpServlet {
   /**
   * When the user clicks the Submit button, the form sends a POST request to the URL specified in the form's action attribute. 
   * The server looks for a servlet that maps to that URL, and then runs its doPost() function. Data send via POST is stored in DataService.
+  * In Order to send this POST request to /data URL, user must be logged in.
   */
     @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -72,16 +74,20 @@ public class DataServlet extends HttpServlet {
     String value = request.getParameter("comment");
     long timestamp = System.currentTimeMillis();
 
-    Entity taskEntity = new Entity("Task");
+    UserService userService = UserServiceFactory.getUserService();
+    String userEmail = userService.getCurrentUser().getEmail();
+
+    Entity taskEntity = new Entity("CommentSubmission");
     taskEntity.setProperty("name", name);
     taskEntity.setProperty("comment", value);
     taskEntity.setProperty("timestamp", timestamp);
+    taskEntity.setProperty("email", userEmail);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(taskEntity);
 
     // Redirect client back to the HTML page (i.e. Home page)
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/");
   }
 
 
