@@ -38,7 +38,7 @@ function addRandomFact() {
  */
 function getCommentContentUsingArrowFunctions() {
   fetch('/data').then(response => response.json()).then((mycontent) => {
-    const listElement = document.getElementById('mycontent-container');
+    const listElement = document.getElementById('comment-container');
     listElement.innerHTML = '';
     for (var i = 0; i < mycontent.length; i++) {
         listElement.appendChild(createListElement('' + mycontent[i]));
@@ -54,3 +54,20 @@ function createListElement(text) {
   return liElement;
 }
 
+/** Fetches login status. */
+function displayCommentForm() {
+  fetch('/login-status').then(response => response.json()).then((info) => {
+
+    const comment_body = document.getElementById('comment-form');
+    const login_button = document.getElementById('login-button-1');
+    if (info[0] === "true") {
+        comment_body.style.display = "block";
+        login_button.style.display = "none";
+    } else {
+        comment_body.style.display = "none";
+        login_button.style.display = "block";
+        login_button.onclick = function() {window.location=info[1]};
+  }
+
+  });
+}

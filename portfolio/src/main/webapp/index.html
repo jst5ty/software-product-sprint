@@ -9,7 +9,7 @@
 
   <style></style>
 
-  <body onload="getCommentContentUsingArrowFunctions()">
+  <body onload="getCommentContentUsingArrowFunctions(); displayCommentForm();">
 
     <ul class="header">
         <li class="header-item"><a href="index.html">Home</a></li>
@@ -64,23 +64,26 @@
       <!--<button class="button" onclick="getRandomContentUsingArrowFunctions()">View Comments</button> -->
       <div id="fact-container" style="background-color:black;color:white;padding:20px;border-radius: 4px;"></div>
       <hr>
+
       <h2>Comments</h2>
-      
-      <!-- Send the data inputted by the client to the URL /data-->
-      <form action="/data" method="POST">
-      <p>Name:</p>
-      <input type="text" name="name" style="width:100%"/>
-      <p>Comment:</p>
-      <textarea name="comment" style="width:100%"></textarea>
-      <input type="submit" class="button"/>
-      </form>
+      <button class="button" onclick="" id="login-button-1" style="display:none;">Login</button>
+      <div id="comment-form" style="display:none;">
+        <!-- Send the data inputted by the client to the URL /data-->
+        <form action="/data" method="POST">
+        <p>Name:</p>
+        <input type="text" name="name" style="width:100%"/>
+        <p>Comment:</p>
+        <textarea name="comment" style="width:100%"></textarea>
+        <input type="submit" class="button"/>
+        </form>
+      </div>
 
       <div style="background-color:black;color:white;padding:20px;border-radius: 4px;">
-          <ul id="mycontent-container" ></ul>
+          <ul id="comment-container" ></ul>
       </div>
       <hr>
     </div>
-
+    
     <div class="footer">
     <p> </p>
     </div>
