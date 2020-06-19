@@ -55,18 +55,33 @@ function createListElement(text) {
 }
 
 /** Fetches login status. */
-function displayCommentForm() {
+function displayLoginContent() {
   fetch('/login-status').then(response => response.json()).then((info) => {
 
     const comment_body = document.getElementById('comment-form');
     const login_button = document.getElementById('login-button-1');
-    if (info[0] === "true") {
-        comment_body.style.display = "block";
-        login_button.style.display = "none";
+
+    const item_element = document.getElementById('login-header');
+    const a = document.createElement('a');
+    var link = document.createTextNode(""); 
+
+    if (info[0] === "true") { // User is logged in
+        comment_body.style.display = "block"; //display
+        login_button.style.display = "none";  //Hide
+
+        var link = document.createTextNode("LogOut");
+        a.appendChild(link);
+        a.href = info[1];
+        item_element.appendChild(a);
     } else {
         comment_body.style.display = "none";
         login_button.style.display = "block";
         login_button.onclick = function() {window.location=info[1]};
+
+        var link = document.createTextNode("LogIn");
+        a.appendChild(link);
+        a.href = info[1];
+        item_element.appendChild(a);
   }
 
   });
