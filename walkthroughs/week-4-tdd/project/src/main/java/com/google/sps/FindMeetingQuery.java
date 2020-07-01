@@ -26,27 +26,29 @@ public final class FindMeetingQuery {
   /*
   * For a particular time slot to work, all attendees must be free to attend the meeting. When a query is made, it will be given a collection of all known events. 
   * SOLUTION : Check to see if any attendees from the meeting request are already in events for a specfied time, if they are then the timeslot is not avaiable else it is.
-  * Return 
   */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    /*
+    
+    
+    ArrayList<Event> sorted_events = new ArrayList<Event>(events);
     // sort by start time inplace
     EventComparator eventComparator = new EventComparator();
-    Collections.sort(events, eventComparator);
-    System.out.print(events);
-    */
+    Collections.sort(sorted_events, eventComparator);
+
     //System.out.print("EVENTS ARE: " + events);
 
     //base case : No events, and duration of request is greater than a whole day
-    if( (request.getDuration() > TimeRange.WHOLE_DAY.duration()) && events.isEmpty()) {
+    if( (request.getDuration() > TimeRange.WHOLE_DAY.duration()) && sorted_events.isEmpty()) {
         return Arrays.asList();
     }
     // base case: No events
-    if(events.isEmpty()){
+    if(sorted_events.isEmpty()){
         return Arrays.asList(TimeRange.WHOLE_DAY);
     }
     
+    // mark the time a meeting can occur (timeslot available)
     int start_time = TimeRange.START_OF_DAY;
+    // mark the end of time the meeting can occur
     int end_time = 0;
     Event prevEvent = null;
 
@@ -55,7 +57,7 @@ public final class FindMeetingQuery {
 
     Collection<TimeRange> result = new ArrayList<TimeRange>();
 
-    Iterator<Event> iterator = events.iterator();
+    Iterator<Event> iterator = sorted_events.iterator();
     while (iterator.hasNext()) {
         Event event = iterator.next();
         
@@ -95,6 +97,8 @@ public final class FindMeetingQuery {
             end_time = TimeRange.END_OF_DAY;
             result.add(TimeRange.fromStartEnd(start_time, end_time, isInclusive));
         }
+
+        canAllAttendeesAttend = true; //reset
         prevEvent = event;
     }
 
