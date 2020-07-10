@@ -76,8 +76,8 @@ function displayLoginContent() {
     } else {
         comment_body.style.display = "none";
         login_button.style.display = "block";
-        login_button.onclick = function() {window.location=info[1]};
-
+        login_button.onclick = function() {window.location=info["url"]};
+        
         // Display Login header tab
         var link = document.createTextNode("Login");
         a.appendChild(link);
